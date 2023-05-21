@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { useProfileProvider } from '../../contexts/ProfileContext';
 
-export default function OutlinedButton({ icon = null, children}) {
+export default function OutlinedButton({ icon = null, onPress, children}) {
+    const { resetProfile } = useProfileProvider();
     return (
-        <View style={styles.outButton}>
-          {icon}
-          <Text style={{ fontSize: 18, fontWeight: '600', color: "#606060" }}>{children}</Text>
-        </View>
+      <View style={styles.outButton} onTouchStart={resetProfile}>
+        {icon}
+        <Text style={{ fontSize: 18, fontWeight: '600', color: "#606060" }}>{children}</Text>
+      </View>
     )
 }
 

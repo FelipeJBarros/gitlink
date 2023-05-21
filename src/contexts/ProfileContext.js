@@ -15,19 +15,21 @@ export default function ProfileProvider({ children }) {
             setProfile(null);
             return;
         }
+
         if(searchFor != null) {
-            try {
-                fetch(`https://api.github.com/users/${searchFor}`)
-                    .then(response => response.json())
-                    .then(data => setProfile(data));
-            } catch(error) {
-                setProfile(null);
-            }
+            fetch(`https://api.github.com/users/${searchFor}`)
+                .then(response => response.json())
+                .then(data => setProfile(data))
+                .catch(error => setProfile(null))
         }
-    }, [searchFor])
+    }, [searchFor]);
+
+    function resetProfile() {
+        setProfile(null);
+    }
 
     return(
-        <ProfileContext.Provider value={{ profile, notFound, profileIsMissing, setSearchFor}}>
+        <ProfileContext.Provider value={{ profile, notFound, profileIsMissing, setSearchFor, resetProfile}}>
             {children}
         </ProfileContext.Provider>
     )

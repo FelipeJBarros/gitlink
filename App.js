@@ -1,68 +1,56 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-
-import Icons from './src/components/Icons';
-
-import Header from './src/components/layout/Header';
-import Stack from './src/components/layout/Stack';
-import Footer from './src/components/layout/Footer';
-
-import OutlinedButton from './src/components/buttons/OutlinedButton';
-import RedirectButton from './src/components/buttons/RedirectButton';
-import ProfilePic from './src/components/ProfilePic';
-import ProfileInfos from './src/components/ProfileInfos';
-import CompactInput from './src/components/CompactInput';
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProfileProvider from './src/contexts/ProfileContext';
+
+import Home from './src/pages/Home';
+import Bio from './src/pages/Bio';
+import Orgs from './src/pages/Orgs';
+import Repositories from './src/pages/Repositories';
+import Followers from './src/pages/Followers';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <ProfileProvider>
-      <View style={styles.container}>
-        <StatusBar style="auto" hidden />
-        <Header>
-          <View>
-            <ProfilePic />
-            <CompactInput />
-          </View>
-          <ProfileInfos />
-        </Header>
-        <Stack items={[
-            <RedirectButton
-              icon={<Icons name='user' size={18} color="black" />}
-              title="Bio"
-              description="Um pouco sobre o usuário"
-            />,
-            <RedirectButton
-              icon={<Icons name='organization' size={18} color="black" />}
-              title="Orgs"
-              description="Organizações que o usuário faz parte"
-            />,
-            <RedirectButton
-              icon={<Icons name='file' size={18} color="black" />}
-              title="Repositórios"
-              description="Lista contendo todos os repositórios"
-            />,
-            <RedirectButton
-              icon={<Icons name='face' size={18} color="black" />}
-              title="Seguidores"
-              description="Lista de seguidores"
-            />,
-          ]}
-        />
-        <Footer>
-          <OutlinedButton icon={<Icons name="mobile" size={18} color="#606060" />}>
-            Resetar
-          </OutlinedButton>
-        </Footer>
-      </View>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShadowVisible: false,
+            headerStyle: {
+              backgroundColor: '#f7f8fc',
+            },
+            headerTintColor: 'black',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        >
+          <Stack.Screen 
+            name="home" component={Home}
+            options={() => ({ title: '' })}
+          />
+          <Stack.Screen
+            name="biography" component={Bio}
+            options={() => ({ title: 'Biografia' })}
+          />
+          <Stack.Screen 
+            name="organizations" 
+            component={Orgs}
+            options={() => ({ title: 'Organizações' })}
+          />
+          <Stack.Screen 
+            name="repositories" 
+            component={Repositories}
+            options={() => ({ title: 'Repositórios' })}
+          />
+          <Stack.Screen 
+            name="followers" 
+            component={Followers}
+            options={() => ({ title: 'Seguidores' })}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </ProfileProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f7f8fc',
-  },
-});
