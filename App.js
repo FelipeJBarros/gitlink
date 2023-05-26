@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import ProfileProvider from './src/contexts/ProfileContext';
 
 import Home from './src/pages/Home';
@@ -17,18 +18,14 @@ export default function App() {
         <Stack.Navigator
           screenOptions={{
             headerShadowVisible: false,
-            headerStyle: {
-              backgroundColor: '#f7f8fc',
-            },
+            headerStyle: { backgroundColor: '#f7f8fc' },
             headerTintColor: 'black',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
+            headerTitleStyle: { fontWeight: 'bold' }
           }}
         >
           <Stack.Screen 
             name="home" component={Home}
-            options={() => ({ title: '' })}
+            options={{ headerShown: false}}
           />
           <Stack.Screen
             name="biography" component={Bio}

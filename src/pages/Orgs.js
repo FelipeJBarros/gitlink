@@ -4,34 +4,27 @@ import useFetch from '../hooks/useFetch';
 import Loading from '../components/layout/Loading';
 import NotFound from '../components/layout/NotFound';
 
-export default function Orgs ({ route }) {
+export default function Orgs({ route }) {
     const { url } = route.params;
-    const [data, fetching] = useFetch(url);
+    const [orgs, fetching] = useFetch(url);
 
-    if(fetching) return <Loading />
-    if(data && data.length === 0) return <NotFound />
+    if (fetching) return <Loading />
+    if (orgs && orgs.length === 0) return <NotFound />
 
     return (
         <ScrollView>
             <View style={styles.wrapper}>
-                {data?.map(org => (
+                {orgs?.map(org => (
                     <View key={org.id} style={styles.listItem}>
                         <View style={styles.chip}>
-                        <Image
-                          style={{
-                            width: 40,
-                            height: 40,
-                            borderRadius: 60
-                          }}
-                          source={{ uri: org.avatar_url}}
-                        />
+                            <Image style={styles.orgImage} source={{ uri: org.avatar_url }} />
                         </View>
                         <View>
-                            <Text numberOfLines={1} style={{ fontSize: 16, fontWeight: 700, maxWidth: 200 }}>
+                            <Text numberOfLines={1} style={styles.login}>
                                 {org.login}
                             </Text>
                             {org.description && (
-                                <Text>{org.description}</Text>
+                                <Text style={{ maxWidth: '90%'}}>{org.description}</Text>
                             )}
                         </View>
                     </View>
@@ -42,22 +35,32 @@ export default function Orgs ({ route }) {
 }
 
 const styles = StyleSheet.create({
-    wrapper: { 
-        flex: 1, 
-        backgroundColor: "#FFF", 
-        margin: 20, padding: 20, 
-        borderRadius: 10, 
+    wrapper: {
+        flex: 1,
+        backgroundColor: "#FFF",
+        margin: 20, padding: 20,
+        borderRadius: 10,
         gap: 8
     },
-    listItem: { 
+    listItem: {
         flexDirection: 'row',
         justifyContent: 'flex-start', alignItems: 'center', gap: 8,
         borderWidth: 1, borderRadius: 4,
         padding: 8,
         minHeight: 60,
     },
-    chip: { 
+    chip: {
         flexDirection: 'row', alignItems: 'center', gap: 4,
         paddingVertical: 4, paddingHorizontal: 8
+    },
+    login: { 
+        fontSize: 16, 
+        fontWeight: 700, 
+        maxWidth: 200 
+    },
+    orgImage: {
+        width: 40,
+        height: 40,
+        borderRadius: 60
     }
 })

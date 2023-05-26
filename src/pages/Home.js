@@ -12,6 +12,7 @@ import RedirectButton from '../components/buttons/RedirectButton';
 import ProfilePic from '../components/ProfilePic';
 import ProfileInfos from '../components/ProfileInfos';
 import CompactInput from '../components/CompactInput';
+
 import { useProfileProvider } from '../contexts/ProfileContext';
 
 export default function Home({ navigation }) {
@@ -29,31 +30,39 @@ export default function Home({ navigation }) {
         <ProfileInfos />
       </Header>
       <Stack items={[
-          <RedirectButton
-            icon={<Icons name='user' size={18} color="black" />}
-            title="Bio"
-            description="Um pouco sobre o usuário"
-            redirectTo={() => navigation.navigate('biography', { profile })}
-          />,
-          <RedirectButton
-            icon={<Icons name='organization' size={18} color="black" />}
-            title="Orgs"
-            description="Organizações que o usuário faz parte"
-            redirectTo={() => navigation.navigate('organizations', { url: profile.organizations_url })}
-          />,
-          <RedirectButton
-            icon={<Icons name='file' size={18} color="black" />}
-            title="Repositórios"
-            description="Lista contendo todos os repositórios"
-            redirectTo={() => navigation.navigate('repositories', { url: profile.repos_url })}
-          />,
-          <RedirectButton
-            icon={<Icons name='face' size={18} color="black" />}
-            title="Seguidores"
-            description="Lista de seguidores"
-            redirectTo={() => navigation.navigate('followers', { url: profile.followers_url})}
-          />,
-        ]}
+        <RedirectButton
+          icon={<Icons name='user' size={18} color="black" />}
+          title="Bio"
+          description="Um pouco sobre o usuário"
+          redirect={
+            () => navigation.navigate('biography', { profile })
+          }
+        />,
+        <RedirectButton
+          icon={<Icons name='organization' size={18} color="black" />}
+          title="Orgs"
+          description="Organizações que o usuário faz parte"
+          redirect={
+            () => navigation.navigate('organizations', { url: profile.organizations_url })
+          }
+        />,
+        <RedirectButton
+          icon={<Icons name='file' size={18} color="black" />}
+          title="Repositórios"
+          description="Lista contendo todos os repositórios"
+          redirect={
+            () => navigation.navigate('repositories', { url: profile.repos_url })
+          }
+        />,
+        <RedirectButton
+          icon={<Icons name='face' size={18} color="black" />}
+          title="Seguidores"
+          description="Lista de seguidores"
+          redirect={
+            () => navigation.navigate('followers', { url: profile.followers_url })
+          }
+        />,
+      ]}
       />
       <Footer>
         <OutlinedButton icon={<Icons name="mobile" size={18} color="#606060" />}>

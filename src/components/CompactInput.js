@@ -11,14 +11,10 @@ export default function CompactInput() {
 
     const inputRef = useRef(null);
 
-    const handleInputToogleStatus = (event) => {
-        setOpen(prevStatus => !prevStatus)
-    }
+    const handleInputToogleStatus = () => setOpen(prevStatus => !prevStatus)
 
     const handleInputFocus = () => {
-        if(open) {
-            inputRef.current.focus()
-        }
+        if (open) inputRef.current.focus();
     }
 
     const handleSubmit = () => {
@@ -28,7 +24,7 @@ export default function CompactInput() {
     }
 
     return (
-        <TouchableHighlight>    
+        <TouchableHighlight>
             <View
                 style={styles.wrapper}
                 onTouchStart={handleInputToogleStatus}
@@ -38,11 +34,11 @@ export default function CompactInput() {
                 {open && (
                     <TextInput
                         ref={inputRef}
-                        style={{ color: 'white', fontSize: 18, width: 140, height: 32}}
+                        style={styles.input}
                         onChangeText={setValueInput}
                         onSubmitEditing={handleSubmit}
                         value={valueInput}
-                        placeholder='Username'
+                        placeholder='Procure por alguém...'
                         placeholderTextColor='#555'
                         maxLength={39}
                     />
@@ -53,10 +49,16 @@ export default function CompactInput() {
 }
 
 const styles = StyleSheet.create({
-    wrapper: { 
+    wrapper: {
         backgroundColor: 'black',
-        padding: 10, borderRadius: 10, 
-        bottom: 0, right: -24, position: 'absolute',
+        padding: 10, borderRadius: 10,
+        bottom: 0, right: -30, position: 'absolute',
         flexDirection: 'row', gap: 20
+    },
+    input: {
+        color: 'white',
+        fontSize: 16,
+        width: 160,
+        height: 32
     }
 })

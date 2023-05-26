@@ -1,16 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 export default function Stack({ items }) {
     return (
         <View style={styles.stack}>
             {items.map((item, idx) => (
-                <View
-                    key={idx}
-                    style={{ 
-                        borderBottomWidth: 1, borderBottomColor: '#f5f5f5',
-                        flex: 1, flexShrink: 0, flexBasis: "25%"
-                    }}
-                >
+                <View key={idx} style={styles.item}>
                     {item}
                 </View>
             ))}
@@ -25,6 +19,12 @@ const styles = StyleSheet.create({
         margin: 20,
         borderRadius: 20,
         overflow: 'hidden'
-
+    },
+    item: {
+        flex: 1, 
+        flexShrink: 0, 
+        flexBasis: "25%",
+        borderBottomWidth: 1,
+        borderBottomColor: '#f5f5f5'
     }
 })

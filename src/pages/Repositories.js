@@ -6,17 +6,17 @@ import NotFound from '../components/layout/NotFound';
 
 import useFetch from '../hooks/useFetch';
 
-export default function Repositories ({ route }) {
+export default function Repositories({ route }) {
     const { url } = route.params;
-    const [data, fetching] = useFetch(url);
+    const [repositories, fetching] = useFetch(url);
 
-    if(fetching) return <Loading />
-    if(data && data.length === 0) return <NotFound />
+    if (fetching) return <Loading />
+    if (repositories && repositories.length === 0) return <NotFound />
 
     return (
         <ScrollView>
             <View style={styles.wrapper}>
-                {data?.map(repository => (
+                {repositories?.map(repository => (
                     <View key={repository.id} style={styles.listItem}>
                         <View>
                             <Text numberOfLines={1} style={{ fontSize: 16, fontWeight: 700, maxWidth: 200 }}>
@@ -27,12 +27,14 @@ export default function Repositories ({ route }) {
                             )}
                         </View>
                         <View style={styles.chip}>
-                            <Icons 
+                            <Icons
                                 name={repository.visibility === 'public' ? 'unlock' : 'lock'}
-                                size={14} 
+                                size={14}
                                 color="black"
                             />
-                            <Text>{repository.visibility === 'public' ? 'Público' : 'Privado'}</Text>
+                            <Text>
+                                {repository.visibility === 'public' ? 'Público' : 'Privado'}
+                            </Text>
                         </View>
                     </View>
                 ))}
@@ -42,21 +44,21 @@ export default function Repositories ({ route }) {
 }
 
 const styles = StyleSheet.create({
-    wrapper: { 
-        flex: 1, 
-        backgroundColor: "#FFF", 
-        margin: 20, padding: 20, 
-        borderRadius: 10, 
+    wrapper: {
+        flex: 1,
+        backgroundColor: "#FFF",
+        margin: 20, padding: 20,
+        borderRadius: 10,
         gap: 8
     },
-    listItem: { 
+    listItem: {
         flexDirection: 'row',
         justifyContent: 'space-between', alignItems: 'center',
         borderWidth: 1, borderRadius: 4,
         padding: 8,
         minHeight: 60,
     },
-    chip: { 
+    chip: {
         flexDirection: 'row', alignItems: 'center', gap: 4,
         borderWidth: 1, borderRadius: 16,
         paddingVertical: 4, paddingHorizontal: 8

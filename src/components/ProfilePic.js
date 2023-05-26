@@ -10,9 +10,13 @@ export default function ProfilePic() {
       style={{
         width: 160,
         height: 160,
-        borderRadius: 60
+        borderRadius: 60,
       }}
-      source={profileIsMissing || notFound ? require('../../assets/gitlogo.png') : { uri: profile.avatar_url}}
+      source={
+        profileIsMissing || notFound ?
+          require('../../assets/gitlogo.png') :
+          { uri: profile.avatar_url}
+      }
     />
   )
 }
